@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biyo's Homepage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            background-image: url('10.webp');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 { margin-top: 20px; }
+        .container {
+            border: 5px solid red; /* Increased border width */
+            width: 90%;
+            max-width: 600px; /* Increased max-width */
+            margin: 20px auto;
+            padding: 15px; /* Increased padding */
+            background-color: blue;
+            border-radius: 10px;
+        }
+        .menu {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* 2 columns */
+            gap: 10px; /* Space between buttons */
+            margin: 10px;
+        }
+        .menu a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #000;
+            padding: 10px;
+            background-color: #e0e0e0;
+            border: 1px solid #000;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            height: 80px; /* Fixed height for square buttons */
+            width: 100%; /* Full width of grid cell */
+            box-sizing: border-box;
+        }
+        .menu a:hover { background-color: purple; color: #fff; }
+        .menu a.disabled {
+            background-color: #ccc;
+            color: #666;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        .yolo {
+            font-size: 50px;
+            font-weight: bold;
+            margin-top: 30px;
+            color: white;
+            text-shadow: 2px 2px 4px #000;
+        }
+        .access-denied {
+            color: red;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            display: none;
+            border: 2px solid red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Biyo's Homepage</h1>
+	<br>
+	<br><br><br><br>
+
+
+    <div id="accessMessage" class="access-denied">Sorry you cant access this site.</div>
+
+    <div class="container">
+        <h1>Hi! Im Condrad Lander Biyo</h1>
+        <div class="menu">
+            <a id="personalLink" href="personal.html">Personal Details</a>
+            <a id="familyLink" href="family.html">Family Background</a>
+            <a id="educationLink" href="education.html">Educational Background</a>
+            <a id="collectionLink" href="collection.html">Collection Background</a>
+        </div>
+    </div>
+
+    <div class="yolo">YOLO</div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            const loggedInUser = localStorage.getItem('loggedInUser');
+            const accessMessage = document.getElementById('accessMessage');
+            const links = [
+                document.getElementById('personalLink'),
+                document.getElementById('familyLink'),
+                document.getElementById('educationLink'),
+                document.getElementById('collectionLink')
+            ];
+
+            if (loggedInUser === 'Condrad Lander Biyo') {
+                accessMessage.style.display = 'none';
+            } else {
+                accessMessage.style.display = 'block';
+                links.forEach(link => {
+                    link.classList.add('disabled');
+                    link.removeAttribute('href');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
