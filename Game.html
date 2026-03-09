@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biyo's Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #1a1a2e;
+            color: white;
+            margin: 0;
+            padding: 20px;
+            overflow: hidden;
+        }
+        .game-container {
+            border: 5px solid #00d4ff;
+            padding: 20px;
+            border-radius: 15px;
+            background-color: #16213e;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .score-board {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #00d4ff;
+        }
+        .timer-board {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+        .highscore-board {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #ffd93d;
+        }
+        .game-area {
+            width: 100%;
+            height: 400px;
+            background-color: #0f3460;
+            border: 2px solid #00d4ff;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            cursor: crosshair;
+        }
+        .ball {
+            width: 50px;
+            height: 50px;
+            background-color: #ff6b6b;
+            border-radius: 50%;
+            position: absolute;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+        .ball:active {
+            transform: scale(0.9);
+        }
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 30px;
+            background-color: #ff6b6b;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 18px;
+            border: 2px solid #ff4757;
+            transition: all 0.3s;
+        }
+        .back-btn:hover {
+            background-color: #ff4757;
+            transform: scale(1.05);
+        }
+        .retry-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 30px;
+            background-color: #ffd93d;
+            color: #1a1a2e;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 18px;
+            border: 2px solid #ffcc00;
+            transition: all 0.3s;
+            display: none; /* Hidden by default */
+        }
+        .retry-btn:hover {
+            background-color: #ffcc00;
+            transform: scale(1.05);
+        }
+        .start-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 20px 40px;
+            background-color: #00d4ff;
+            color: #1a1a2e;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 24px;
+            border: 3px solid #00a8cc;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .start-btn:hover {
+            background-color: #00a8cc;
+            transform: scale(1.05);
+        }
+        .instructions {
+            margin-top: 15px;
+            color: #a0a0a0;
+            font-size: 14px;
+        }
+        .game-over {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            border: 3px solid #ff6b6b;
+            z-index: 100;
+        }
+        .game-over h2 {
+            color: #ff6b6b;
+            font-size: 32px;
+            margin: 0 0 10px 0;
+        }
+        .game-over p {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="game-container">
+        <h1>🎮 Catch the Ball!</h1>
+        
+        <!-- Start Screen -->
+        <div id="startScreen">
+            <p class="instructions">Click the red ball as fast as you can!</p>
+            <p class="instructions">You have 60 seconds to get the highest score!</p>
+            <p class="highscore-board">High Score: <span id="highscore">0</span></p>
+            <a href="#" onclick="startGame()" class="start-btn">▶ START GAME</a>
+        </div>
+        
+        <!-- Game Screen (Hidden initially) -->
+        <div id="gameScreen" class="hidden">
+            <div class="score-board">Score: <span id="score">0</span></div>
+            <div class="timer-board">Time: <span id="timer">60</span>s</div>
+            
+            <div class="game-area" id="gameArea">
+                <!-- Ball will be generated here -->
+            </div>
+            
+            <p class="instructions">Click the red ball as fast as you can!</p>
+        </div>
+        
+        <!-- Teleport Back Button -->
+        <a href="My_homepage.html" class="back-btn">⬅ Teleport Back to Homepage</a>
+        
+        <!-- Retry Button (Hidden by default) -->
+        <a href="#" onclick="restartGame()" class="retry-btn" id="retryBtn">🔄 Retry Game</a>
+        
+        <!-- Game Over Screen -->
+        <div class="game-over" id="gameOverScreen">
+            <h2>⏰ Time's Up!</h2>
+            <p>Your Score: <span id="finalScore">0</span></p>
+            <p id="newHighscoreMsg" style="color: #ffd93d; display: none;">🏆 New High Score!</p>
+        </div>
+    </div>
+
+    <script>
+        let score = 0;
+        let timeLeft = 60;
+        let gameActive = false;
+        let timerInterval;
+        const gameArea = document.getElementById('gameArea');
+        const scoreDisplay = document.getElementById('score');
+        const timerDisplay = document.getElementById('timer');
+        const highscoreDisplay = document.getElementById('highscore');
+        const retryBtn = document.getElementById('retryBtn');
+        const gameOverScreen = document.getElementById('gameOverScreen');
+        const finalScoreDisplay = document.getElementById('finalScore');
+        const newHighscoreMsg = document.getElementById('newHighscoreMsg');
+        const startScreen = document.getElementById('startScreen');
+        const gameScreen = document.getElementById('gameScreen');
+        
+        // Load high score from localStorage
+        let highScore = localStorage.getItem('gameHighScore') || 0;
+        highscoreDisplay.textContent = highScore;
+
+        let ball;
+
+        function createBall() {
+            if (ball) {
+                ball.remove();
+            }
+            
+            ball = document.createElement('div');
+            ball.classList.add('ball');
+            
+            // Random position within game area
+            const maxX = gameArea.clientWidth - 50;
+            const maxY = gameArea.clientHeight - 50;
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+            
+            ball.style.left = randomX + 'px';
+            ball.style.top = randomY + 'px';
+            
+            ball.addEventListener('click', function() {
+                if (!gameActive) return;
+                score++;
+                scoreDisplay.textContent = score;
+                createBall();
+            });
+            
+            gameArea.appendChild(ball);
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(function() {
+                if (!gameActive) return;
+                
+                timeLeft--;
+                timerDisplay.textContent = timeLeft;
+                
+                if (timeLeft <= 0) {
+                    endGame();
+                }
+            }, 1000);
+        }
+
+        function startGame() {
+            // Hide start screen, show game screen
+            startScreen.classList.add('hidden');
+            gameScreen.classList.remove('hidden');
+            
+            // Reset game variables
+            score = 0;
+            timeLeft = 60;
+            gameActive = true;
+            
+            // Update displays
+            scoreDisplay.textContent = score;
+            timerDisplay.textContent = timeLeft;
+            
+            // Start timer and create first ball
+            startTimer();
+            createBall();
+        }
+
+        function endGame() {
+            gameActive = false;
+            clearInterval(timerInterval);
+            
+            // Check for new high score
+            let isNewHighScore = false;
+            if (score > highScore) {
+                highScore = score;
+                localStorage.setItem('gameHighScore', highScore);
+                highscoreDisplay.textContent = highScore;
+                isNewHighScore = true;
+            }
+            
+            // Show game over screen
+            finalScoreDisplay.textContent = score;
+            newHighscoreMsg.style.display = isNewHighScore ? 'block' : 'none';
+            gameOverScreen.style.display = 'block';
+            retryBtn.style.display = 'inline-block';
+        }
+
+        function restartGame() {
+            // Reset game variables
+            score = 0;
+            timeLeft = 60;
+            gameActive = true;
+            
+            // Update displays
+            scoreDisplay.textContent = score;
+            timerDisplay.textContent = timeLeft;
+            
+            // Hide game over screen and retry button
+            gameOverScreen.style.display = 'none';
+            retryBtn.style.display = 'none';
+            
+            // Start timer and create first ball
+            startTimer();
+            createBall();
+        }
+    </script>
+</body>
+</html>
