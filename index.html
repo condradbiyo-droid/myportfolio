@@ -83,160 +83,160 @@
             <button class="tab-button active" onclick="showForm('login')">Log In</button>
             <button class="tab-button" onclick="showForm('signup')">Sign Up</button>
         </div>
-        
-        <div id="loginForm" class="form-section active">
-            <form id="login">
-                <input type="text" id="loginUsername" placeholder="Username or Email" required>
-                <input type="password" id="loginPassword" placeholder="Password" required>
-                <div id="loginError" class="error"></div>
-                <div id="loginSuccess" class="success"></div>
-                <button type="submit">Enter the Realm</button>
-            </form>
-        </div>
-        
-        <div id="signupForm" class="form-section">
-            <form id="signup">
-                <input type="text" id="signupUsername" placeholder="Username" required>
-                <input type="email" id="signupEmail" placeholder="Email" required>
-                <input type="password" id="signupPassword" placeholder="Password" required>
-                <input type="password" id="signupConfirmPassword" placeholder="Confirm Password" required>
-                <div id="signupError" class="error"></div>
-                <div id="signupSuccess" class="success"></div>
-                <button type="submit">Forge Your Path</button>
-            </form>
-        </div>
-        
-        <div id="welcomeScreen">
-            <p id="welcomeMessage"></p>
-            <!-- MODIFIED: This button now redirects to biyo.html -->
-            <button onclick="beginJourney()">Begin!</button>
-        </div>
-        
-        <p>Prepare for the journey ahead...</p>
+    <div id="loginForm" class="form-section active">
+        <form id="login">
+            <input type="text" id="loginUsername" placeholder="Username or Email" required>
+            <input type="password" id="loginPassword" placeholder="Password" required>
+            <div id="loginError" class="error"></div>
+            <div id="loginSuccess" class="success"></div>
+            <button type="submit">Enter the Realm</button>
+        </form>
     </div>
+    
+    <div id="signupForm" class="form-section">
+        <form id="signup">
+            <input type="text" id="signupUsername" placeholder="Username" required>
+            <input type="email" id="signupEmail" placeholder="Email" required>
+            <input type="password" id="signupPassword" placeholder="Password" required>
+            <input type="password" id="signupConfirmPassword" placeholder="Confirm Password" required>
+            <div id="signupError" class="error"></div>
+            <div id="signupSuccess" class="success"></div>
+            <button type="submit">Forge Your Path</button>
+        </form>
+    </div>
+    
+    <div id="welcomeScreen">
+        <p id="welcomeMessage"></p>
+        <!-- MODIFIED: This button now redirects to biyo.html -->
+        <button onclick="beginJourney()">Begin!</button>
+    </div>
+    
+    <p>Prepare for the journey ahead...</p>
+</div>
 
-    <script>
-        function showForm(formType) {
-            document.getElementById('loginForm').classList.remove('active');
-            document.getElementById('signupForm').classList.remove('active');
-            document.getElementById('welcomeScreen').style.display = 'none';
-            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-            
-            if (formType === 'login') {
-                document.getElementById('loginForm').classList.add('active');
-                document.querySelector('button[onclick="showForm(\'login\')"]').classList.add('active');
-                document.body.classList.remove('signup-mode');
-                document.body.style.backgroundColor = '#000000';
-                document.body.style.backgroundImage = 'url(\'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="flame" patternUnits="userSpaceOnUse" width="20" height="20"><circle cx="10" cy="10" r="2" fill="%23ff0000" opacity="0.1"/><circle cx="15" cy="5" r="1" fill="%23ff0000" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23flame)"/></svg>\')';
-                document.querySelector('.container').style.borderColor = '#8b0000';
-            } else {
-                document.getElementById('signupForm').classList.add('active');
-                document.querySelector('button[onclick="showForm(\'signup\')"]').classList.add('active');
-                document.body.classList.add('signup-mode');
-                document.body.style.backgroundColor = '#ffffff';
-                document.body.style.backgroundImage = 'url(\'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="flame" patternUnits="userSpaceOnUse" width="20" height="20"><circle cx="10" cy="10" r="2" fill="%230000ff" opacity="0.1"/><circle cx="15" cy="5" r="1" fill="%230000ff" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23flame)"/></svg>\')';
-                document.querySelector('.container').style.borderColor = '#0000ff';
-            }
-            document.getElementById('loginError').textContent = '';
-            document.getElementById('loginSuccess').textContent = '';
-            document.getElementById('signupError').textContent = '';
-            document.getElementById('signupSuccess').textContent = '';
+<script>
+    function showForm(formType) {
+        document.getElementById('loginForm').classList.remove('active');
+        document.getElementById('signupForm').classList.remove('active');
+        document.getElementById('welcomeScreen').style.display = 'none';
+        document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+        
+        if (formType === 'login') {
+            document.getElementById('loginForm').classList.add('active');
+            document.querySelector('button[onclick="showForm(\'login\')"]').classList.add('active');
+            document.body.classList.remove('signup-mode');
+            document.body.style.backgroundColor = '#000000';
+            document.body.style.backgroundImage = 'url(\'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="flame" patternUnits="userSpaceOnUse" width="20" height="20"><circle cx="10" cy="10" r="2" fill="%23ff0000" opacity="0.1"/><circle cx="15" cy="5" r="1" fill="%23ff0000" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23flame)"/></svg>\')';
+            document.querySelector('.container').style.borderColor = '#8b0000';
+        } else {
+            document.getElementById('signupForm').classList.add('active');
+            document.querySelector('button[onclick="showForm(\'signup\')"]').classList.add('active');
+            document.body.classList.add('signup-mode');
+            document.body.style.backgroundColor = '#ffffff';
+            document.body.style.backgroundImage = 'url(\'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="flame" patternUnits="userSpaceOnUse" width="20" height="20"><circle cx="10" cy="10" r="2" fill="%230000ff" opacity="0.1"/><circle cx="15" cy="5" r="1" fill="%230000ff" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23flame)"/></svg>\')';
+            document.querySelector('.container').style.borderColor = '#0000ff';
+        }
+        document.getElementById('loginError').textContent = '';
+        document.getElementById('loginSuccess').textContent = '';
+        document.getElementById('signupError').textContent = '';
+        document.getElementById('signupSuccess').textContent = '';
+    }
+
+    // UPDATED: Redirects to the second file
+    function beginJourney() {
+        window.location.href = 'My_homepage.html';
+    }
+
+    function hashPassword(password) {
+        return CryptoJS.SHA256(password).toString();
+    }
+
+    document.getElementById('signup').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const username = document.getElementById('signupUsername').value.trim();
+        const email = document.getElementById('signupEmail').value.trim();
+        const password = document.getElementById('signupPassword').value;
+        const confirmPassword = document.getElementById('signupConfirmPassword').value;
+        const errorDiv = document.getElementById('signupError');
+        const successDiv = document.getElementById('signupSuccess');
+
+        errorDiv.textContent = '';
+        successDiv.textContent = '';
+
+        if (!username || !email || !password || !confirmPassword) {
+            errorDiv.textContent = 'All fields are required, hollow one.';
+            return;
+        }
+        if (password !== confirmPassword) {
+            errorDiv.textContent = 'Passwords do not match. Try again.';
+            return;
+        }
+        if (password.length < 6) {
+            errorDiv.textContent = 'Password must be at least 6 characters.';
+            return;
         }
 
-        // UPDATED: Redirects to the second file
-        function beginJourney() {
-            window.location.href = 'My_homepage.html';
+        const users = JSON.parse(localStorage.getItem('darkSoulsUsers') || '{}');
+        if (users[username]) {
+            errorDiv.textContent = 'Username already taken.';
+            return;
         }
 
-        function hashPassword(password) {
-            return CryptoJS.SHA256(password).toString();
+        users[username] = {
+            email: email,
+            password: hashPassword(password)
+        };
+        localStorage.setItem('darkSoulsUsers', JSON.stringify(users));
+
+        successDiv.textContent = 'Your covenant is sealed, ' + username + '! The journey begins.';
+        document.getElementById('signup').reset();
+    });
+
+    // LOGIN LOGIC
+    document.getElementById('login').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const usernameOrEmail = document.getElementById('loginUsername').value.trim();
+        const password = document.getElementById('loginPassword').value;
+        const errorDiv = document.getElementById('loginError');
+        const successDiv = document.getElementById('loginSuccess');
+
+        errorDiv.textContent = '';
+        successDiv.textContent = '';
+
+        if (!usernameOrEmail || !password) {
+            errorDiv.textContent = 'All fields are required, undead.';
+            return;
         }
 
-        document.getElementById('signup').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('signupUsername').value.trim();
-            const email = document.getElementById('signupEmail').value.trim();
-            const password = document.getElementById('signupPassword').value;
-            const confirmPassword = document.getElementById('signupConfirmPassword').value;
-            const errorDiv = document.getElementById('signupError');
-            const successDiv = document.getElementById('signupSuccess');
+        const users = JSON.parse(localStorage.getItem('darkSoulsUsers') || '{}');
+        let user = null;
+        let username = '';
 
-            errorDiv.textContent = '';
-            successDiv.textContent = '';
-
-            if (!username || !email || !password || !confirmPassword) {
-                errorDiv.textContent = 'All fields are required, hollow one.';
-                return;
+        for (const u in users) {
+            if (u === usernameOrEmail || users[u].email === usernameOrEmail) {
+                user = users[u];
+                username = u;
+                break;
             }
-            if (password !== confirmPassword) {
-                errorDiv.textContent = 'Passwords do not match. Try again.';
-                return;
-            }
-            if (password.length < 6) {
-                errorDiv.textContent = 'Password must be at least 6 characters.';
-                return;
-            }
+        }
 
-            const users = JSON.parse(localStorage.getItem('darkSoulsUsers') || '{}');
-            if (users[username]) {
-                errorDiv.textContent = 'Username already taken.';
-                return;
-            }
+        if (!user || user.password !== hashPassword(password)) {
+            errorDiv.textContent = 'Invalid credentials.';
+            return;
+        }
 
-            users[username] = {
-                email: email,
-                password: hashPassword(password)
-            };
-            localStorage.setItem('darkSoulsUsers', JSON.stringify(users));
+        // SUCCESSFUL LOGIN: Store the user and show welcome screen
+        document.getElementById('loginForm').classList.remove('active');
+        document.getElementById('signupForm').classList.remove('active');
+        document.getElementById('welcomeScreen').style.display = 'block';
+        document.getElementById('welcomeMessage').textContent = 'Welcome back to the realm, ' + username + '! May your bonfires burn eternal.';
+        
+        // KEY STEP: Save the username so the second page knows who you are
+        localStorage.setItem('loggedInUser', username);
+        
+        document.getElementById('login').reset();
+    });
+</script>
 
-            successDiv.textContent = 'Your covenant is sealed, ' + username + '! The journey begins.';
-            document.getElementById('signup').reset();
-        });
-
-        // LOGIN LOGIC
-        document.getElementById('login').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const usernameOrEmail = document.getElementById('loginUsername').value.trim();
-            const password = document.getElementById('loginPassword').value;
-            const errorDiv = document.getElementById('loginError');
-            const successDiv = document.getElementById('loginSuccess');
-
-            errorDiv.textContent = '';
-            successDiv.textContent = '';
-
-            if (!usernameOrEmail || !password) {
-                errorDiv.textContent = 'All fields are required, undead.';
-                return;
-            }
-
-            const users = JSON.parse(localStorage.getItem('darkSoulsUsers') || '{}');
-            let user = null;
-            let username = '';
-
-            for (const u in users) {
-                if (u === usernameOrEmail || users[u].email === usernameOrEmail) {
-                    user = users[u];
-                    username = u;
-                    break;
-                }
-            }
-
-            if (!user || user.password !== hashPassword(password)) {
-                errorDiv.textContent = 'Invalid credentials.';
-                return;
-            }
-
-            // SUCCESSFUL LOGIN: Store the user and show welcome screen
-            document.getElementById('loginForm').classList.remove('active');
-            document.getElementById('signupForm').classList.remove('active');
-            document.getElementById('welcomeScreen').style.display = 'block';
-            document.getElementById('welcomeMessage').textContent = 'Welcome back to the realm, ' + username + '! May your bonfires burn eternal.';
-            
-            // KEY STEP: Save the username so the second page knows who you are
-            localStorage.setItem('loggedInUser', username);
-            
-            document.getElementById('login').reset();
-        });
-    </script>
 </body>
 </html>
