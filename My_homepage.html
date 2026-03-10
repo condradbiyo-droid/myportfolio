@@ -19,18 +19,18 @@
         }
         h1 { margin-top: 20px; }
         .container {
-            border: 5px solid red; /* Increased border width */
+            border: 5px solid red;
             width: 90%;
-            max-width: 600px; /* Increased max-width */
+            max-width: 600px;
             margin: 20px auto;
-            padding: 15px; /* Increased padding */
+            padding: 15px;
             background-color: blue;
             border-radius: 10px;
         }
         .menu {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* 2 columns */
-            gap: 10px; /* Space between buttons */
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
             margin: 10px;
         }
         .menu a {
@@ -44,8 +44,8 @@
             border: 1px solid #000;
             border-radius: 5px;
             transition: background-color 0.3s;
-            height: 80px; /* Fixed height for square buttons */
-            width: 100%; /* Full width of grid cell */
+            height: 80px;
+            width: 100%;
             box-sizing: border-box;
         }
         .menu a:hover { background-color: purple; color: #fff; }
@@ -54,6 +54,19 @@
             color: #666;
             cursor: not-allowed;
             pointer-events: none;
+        }
+        /* GAME BUTTON STYLES */
+        .game-btn {
+            grid-column: span 2;
+            background-color: #28a745;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2em;
+            border: 2px solid #1e7e34;
+        }
+        .game-btn:hover {
+            background-color: #218838;
+            color: white;
         }
         .yolo {
             font-size: 50px;
@@ -79,7 +92,6 @@
 	<br>
 	<br><br><br><br>
 
-
     <div id="accessMessage" class="access-denied">Sorry you cant access this site.</div>
 
     <div class="container">
@@ -89,6 +101,9 @@
             <a id="familyLink" href="family.html">Family Background</a>
             <a id="educationLink" href="education.html">Educational Background</a>
             <a id="collectionLink" href="collection.html">Collection Background</a>
+            
+            <!-- GAME BUTTON - NOT AFFECTED BY RESTRICTION -->
+            <a id="gameLink" href="game.html" class="game-btn">🎮 Play Game</a>
         </div>
     </div>
 
@@ -98,7 +113,9 @@
         window.addEventListener('DOMContentLoaded', function() {
             const loggedInUser = localStorage.getItem('loggedInUser');
             const accessMessage = document.getElementById('accessMessage');
-            const links = [
+            
+            // Only these links are restricted
+            const restrictedLinks = [
                 document.getElementById('personalLink'),
                 document.getElementById('familyLink'),
                 document.getElementById('educationLink'),
@@ -109,10 +126,11 @@
                 accessMessage.style.display = 'none';
             } else {
                 accessMessage.style.display = 'block';
-                links.forEach(link => {
+                restrictedLinks.forEach(link => {
                     link.classList.add('disabled');
                     link.removeAttribute('href');
                 });
+                // gameLink is NOT in this list, so it stays active!
             }
         });
     </script>
